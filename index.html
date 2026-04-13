@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAIL Bootcamp — Jmenovky k tisku</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #06163E;
+      --gold: #F2D17B;
+      --gold-dark: #C49A0A;
+      --font-display: 'Instrument Sans', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+    }
+
+    body { font-family: var(--font-body); background: #E8ECF0; color: #1E293B; padding: 40px 20px; }
+
+    .page-header { text-align: center; margin-bottom: 40px; }
+    .page-header h1 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+    .page-header p { font-size: .95rem; color: #64748B; max-width: 500px; margin: 0 auto; line-height: 1.5; }
+
+    .section-title {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; color: var(--navy);
+      max-width: 900px; margin: 40px auto 20px; padding-bottom: 10px; border-bottom: 2px solid var(--gold);
+    }
+
+    .badges-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fill, 302px); gap: 20px; justify-content: center;
+    }
+
+    .badge {
+      width: 302px; height: 189px; border-radius: 12px; overflow: hidden;
+      position: relative; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--navy) 0%, #0C1E3F 100%);
+      color: #fff; display: flex; flex-direction: column;
+      box-shadow: 0 8px 32px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    .badge-gold-stripe {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+    }
+
+    .badge-inner {
+      padding: 10px 14px 9px 20px; display: flex; flex-direction: column; flex: 1;
+      justify-content: space-between;
+    }
+
+    .badge-top { display: flex; align-items: center; justify-content: space-between; }
+    .badge-brand {
+      font-family: var(--font-display); font-size: .7rem; font-weight: 800; letter-spacing: .06em;
+      background: linear-gradient(135deg, var(--gold), #E5C36E);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .badge-hashtag {
+      font-family: var(--font-display); font-size: .55rem; font-weight: 600; color: rgba(255,255,255,.35);
+    }
+
+    .badge-name-block { display: flex; flex-direction: column; justify-content: flex-end; flex: 1; }
+    .badge-firstname {
+      font-family: var(--font-display); font-size: 3.5rem; font-weight: 800;
+      line-height: 1; letter-spacing: -.03em; margin-left: -2px;
+    }
+    .badge-lastname {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 600;
+      line-height: 1.15; letter-spacing: .01em; color: rgba(255,255,255,.5); margin-top: 2px;
+    }
+    .badge-note {
+      font-family: var(--font-body); font-size: .6rem; font-weight: 500;
+      color: rgba(255,255,255,.3); margin-top: 2px; font-style: italic;
+    }
+
+    .badge-footer {
+      font-family: var(--font-display); font-size: .62rem; font-weight: 600; color: rgba(255,255,255,.35);
+      border-top: 1px solid rgba(242,209,123,.12); padding-top: 7px;
+      display: flex; justify-content: space-between;
+    }
+    .badge-footer .gold { color: var(--gold); font-weight: 700; font-size: .65rem; }
+
+    .badge::before {
+      content: ''; position: absolute; top: 0; right: 0; width: 180px; height: 180px;
+      background: radial-gradient(circle at top right, rgba(242,209,123,.05) 0%, transparent 60%); pointer-events: none;
+    }
+
+    .badge-empty .badge-name-block {
+      border-bottom: 2px dashed rgba(255,255,255,.12); margin-bottom: 4px; padding-bottom: 4px;
+    }
+
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+
+    @media print {
+      html, body {
+        background: white !important;
+        padding: 0; margin: 0;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      .page-header, .section-title { display: none !important; }
+      .badges-grid {
+        max-width: none; gap: 4mm; margin: 0;
+        display: flex; flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+      .badge {
+        width: 80mm; height: 50mm;
+        border-radius: 3mm; box-shadow: none;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .badge::before {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>FAIL Bootcamp — Jmenovky</h1>
+    <p>89 samolepek (80 × 50 mm) — 79 se jmény + 10 prázdných. Ctrl+P pro tisk.</p>
+  </div>
+
+  <div class="section-title">Jmenovky se jmény (79 ks)</div>
+  <div class="badges-grid">
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Filip</div><div class="badge-lastname">Dřímalka</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Hanka</div><div class="badge-lastname">Fialková</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Helena</div><div class="badge-lastname">Michálková</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jirka</div><div class="badge-lastname">Wasserbauer</div><div class="badge-note">fotograf</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Adéla</div><div class="badge-lastname">Malá</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Dalibor</div><div class="badge-lastname">Komárek</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">David</div><div class="badge-lastname">Zoubek</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Filip</div><div class="badge-lastname">Figala</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Kateřina</div><div class="badge-lastname">Kůrová</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Katka</div><div class="badge-lastname">Šumpíková</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Martin</div><div class="badge-lastname">Daniš</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Martin</div><div class="badge-lastname">Látal</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Michal</div><div class="badge-lastname">Vejborný</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Naďa</div><div class="badge-lastname">Hetešová</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Pavla</div><div class="badge-lastname">Pelikánová</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Radek</div><div class="badge-lastname">Moťka</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Richard</div><div class="badge-lastname">Červenka</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Vladana</div><div class="badge-lastname">Bačová</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Tereza</div><div class="badge-lastname">Volfová</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Josef</div><div class="badge-lastname">Klesa</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Michal</div><div class="badge-lastname">Uhlíř</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Lucie</div><div class="badge-lastname">Černá</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jaroslav</div><div class="badge-lastname">Krčál</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jonáš</div><div class="badge-lastname">Mlýnek</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Vladimír</div><div class="badge-lastname">Hrouda</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Michal</div><div class="badge-lastname">Kulič</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jan</div><div class="badge-lastname">Váňa</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Ivan</div><div class="badge-lastname">Mojžíš</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Libor</div><div class="badge-lastname">Šimo</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Tomáš</div><div class="badge-lastname">Salák</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Vlastimil</div><div class="badge-lastname">Váňa</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Karel</div><div class="badge-lastname">Nosek</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jirka</div><div class="badge-lastname">Langr</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Standa</div><div class="badge-lastname">Tichý</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Martin</div><div class="badge-lastname">Hájek</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Vojtěch</div><div class="badge-lastname">Krmíček</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Michal</div><div class="badge-lastname">Veselý</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Romana</div><div class="badge-lastname">Makovská</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jiří</div><div class="badge-lastname">Halousek</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Miloslav</div><div class="badge-lastname">Mrkva</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Marcela</div><div class="badge-lastname">Jirků</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Zuzana</div><div class="badge-lastname">Szalbotová</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Kateřina</div><div class="badge-lastname">Jančík Repatá</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jan</div><div class="badge-lastname">Bystřický</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Petr</div><div class="badge-lastname">Hlaváč</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Pavel</div><div class="badge-lastname">Šustr</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Radovan</div><div class="badge-lastname">Debnar</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Daniel</div><div class="badge-lastname">Pozner</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jan</div><div class="badge-lastname">Polách</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Vladimíra</div><div class="badge-lastname">Jurasová</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Roman</div><div class="badge-lastname">Tvrdý</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Miloš</div><div class="badge-lastname">Vích</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jindřich</div><div class="badge-lastname">Augusta</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Lukáš</div><div class="badge-lastname">Jakoubek</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Martin</div><div class="badge-lastname">Urban</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Lukáš</div><div class="badge-lastname">Zvára</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Gabriela</div><div class="badge-lastname">Sulková</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Štěpán</div><div class="badge-lastname">Kraml</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Roman</div><div class="badge-lastname">Michalička</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jaroslav</div><div class="badge-lastname">Látal</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Ondřej</div><div class="badge-lastname">Šimíček</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Milan</div><div class="badge-lastname">Kollinger</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Antonina</div><div class="badge-lastname">Hudz</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Simona</div><div class="badge-lastname">Benešová</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Bassel</div><div class="badge-lastname">Zalek</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jiri</div><div class="badge-lastname">Zajic</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Michaela</div><div class="badge-lastname">Pospíšilová</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Milan</div><div class="badge-lastname">Novotný</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Petr</div><div class="badge-lastname">Stolín</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Petr</div><div class="badge-lastname">Malý</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Tomáš</div><div class="badge-lastname">Voráček</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Vilém</div><div class="badge-lastname">Ťopek</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Juraj</div><div class="badge-lastname">Tarko</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jan</div><div class="badge-lastname">Hudeček</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jan</div><div class="badge-lastname">Hudec</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Radim</div><div class="badge-lastname">Roška</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jakub</div><div class="badge-lastname">Chomát</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Jakub</div><div class="badge-lastname">Ponikelský</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"><div class="badge-firstname">Vojta</div><div class="badge-lastname">Roček</div></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+  </div>
+
+  <!-- PRÁZDNÉ -->
+  <div class="section-title">Prázdné jmenovky (10 ks)</div>
+  <div class="badges-grid">
+
+    <div class="badge badge-empty"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge badge-empty"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge badge-empty"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge badge-empty"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge badge-empty"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge badge-empty"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge badge-empty"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge badge-empty"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge badge-empty"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+    <div class="badge badge-empty"><div class="badge-gold-stripe"></div><div class="badge-inner"><div class="badge-top"><span class="badge-brand">Future AI Leader</span><span class="badge-hashtag">#FutureAILeader</span></div><div class="badge-name-block"></div><div class="badge-footer"><span class="gold">FAIL Bootcamp</span><span>Praha 15. 4. 2026</span></div></div></div>
+
+  </div>
+
+</body>
+</html>
