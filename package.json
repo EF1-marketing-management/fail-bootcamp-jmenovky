@@ -1,0 +1,25 @@
+{
+  "name": "fail-bootcamp-jmenovky",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EF1-marketing-management/fail-bootcamp-jmenovky.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EF1-marketing-management/fail-bootcamp-jmenovky/issues"
+  },
+  "homepage": "https://github.com/EF1-marketing-management/fail-bootcamp-jmenovky#readme",
+  "dependencies": {
+    "@fontsource/instrument-sans": "^5.2.8",
+    "puppeteer": "^24.40.0"
+  }
+}

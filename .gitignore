@@ -1,0 +1,8 @@
+node_modules/
+screenshots/
+fonts/
+fonts-base64.json
+print-*-embedded.html
+print-google-fonts.html
+embed-fonts.js
+*.pdf
