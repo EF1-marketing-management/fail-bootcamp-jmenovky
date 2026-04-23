@@ -19,9 +19,9 @@ async function generateScreenshots() {
   }
   fs.mkdirSync(screenshotsDir);
 
-  // Load the live website with correct fonts
-  console.log('Loading live website with correct fonts...');
-  const url = 'https://ef1-marketing-management.github.io/fail-bootcamp-jmenovky/';
+  // Load the local file so screenshots always reflect the latest unpushed edits.
+  console.log('Loading local badge page...');
+  const url = `file://${path.join(__dirname, 'index.html')}`;
   await page.goto(url, { waitUntil: 'networkidle0' });
   
   // Wait for fonts to fully load

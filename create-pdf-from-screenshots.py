@@ -36,10 +36,12 @@ badge_files = sorted([
 empty_file = os.path.join(screenshots_dir, 'badge-empty.png')
 
 # Create main PDF
-output_main = os.path.join(home, "Downloads", "FAIL-jmenovky-79ks-FINAL.pdf")
+badge_count = len(badge_files)
+main_filename = f"FAIL-jmenovky-{badge_count}ks-FINAL.pdf"
+output_main = os.path.join(home, "Downloads", main_filename)
 count = create_pdf(badge_files, output_main)
 size_mb = os.path.getsize(output_main) / 1024 / 1024
-print(f"✓ Created: FAIL-jmenovky-79ks-FINAL.pdf ({count} pages, {size_mb:.1f} MB)")
+print(f"✓ Created: {main_filename} ({count} pages, {size_mb:.1f} MB)")
 
 # Create empty badge PDF
 output_empty = os.path.join(home, "Downloads", "FAIL-jmenovka-prazdna-FINAL.pdf")
